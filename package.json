@@ -1,0 +1,23 @@
+{
+  "name": "fronterrorreport",
+  "version": "1.0.0",
+  "description": "前端错误上报服务",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wy2008826/frontErrorReport.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wy2008826/frontErrorReport/issues"
+  },
+  "homepage": "https://github.com/wy2008826/frontErrorReport#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "source-map": "^0.7.3"
+  }
+}
