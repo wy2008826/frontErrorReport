@@ -93,7 +93,7 @@ app.get('/index',function (req,res) {
         res.on("end", function(){
             console.log('imgData:',typeof imgData);
 
-                fs.writeFile('./test.js.map',imgData,(err)=>{
+                fs.writeFile('./test.js.map',imgData,{ 'flag': 'a' },(err)=>{
                     console.log(123);
                 })
 
