@@ -62,7 +62,7 @@ app.get('/index', async function (req, response) {
         message,
 
         hostname,//环境 按照域名划分
-
+        useragent,
         ...rest
     } = req.query;
 
@@ -79,7 +79,8 @@ app.get('/index', async function (req, response) {
         colNum,
         reportType,
         message,
-        hostname
+        hostname,
+        useragent
     });
 
     response.json({
@@ -108,7 +109,8 @@ async function reduceVueConfigError({
                                         colNum,
                                         reportType='vueConfigError',
                                         message='',
-                                        hostname='dev-m.gumingnc.com'
+                                        hostname='dev-m.gumingnc.com',
+                                        useragent=''
 } = config) {
 
     return new Promise(function (resolve, reject) {
@@ -175,7 +177,6 @@ async function reduceVueConfigError({
                     } = getYMSHMS();
 
 
-                    console.log('hostname:',hostname);
                     //生成环境和报错内容目录
                     let hostErrorTypeDir = `./${hostname}/${reportType}`
                     await makeDeepDir(hostErrorTypeDir);
@@ -185,7 +186,6 @@ async function reduceVueConfigError({
 
                     fs.stat(fileName,async function (error,stat) {
                         if(error){
-                            console.log('error');
                             await writeFile(fileName,{data:[],total:0})
                         }
 
@@ -199,6 +199,7 @@ async function reduceVueConfigError({
                             source:(source||'').trim(),
                             originCode: (rawLines[pos.line - 1]||'').trim(),
                             hostname,
+                            useragent,
                         });
 
                         arrData.total+=1;
@@ -236,21 +237,16 @@ async function writeFile(file_name_with_url,data){
 
 //生成多层路由
 function makeDeepDir(dir,cb){
-
     return new Promise(async function(resolve,reject){
         let dirArr = dir.split('/');
-        console.log('dirArr:',dirArr);
         for(let i=1;i<dirArr.length;i++){
             let dir = dirArr.slice(0,i+1).join('/');
-            console.log('dir:',dir);
-
             if (!fs.existsSync(dir)) {
                 fs.mkdirSync(dir)
             }
         }
         resolve(true)
     })
-
 }
 
 
