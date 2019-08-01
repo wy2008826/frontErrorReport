@@ -7,7 +7,8 @@ let app = express();
 
 let {
     getYMSHMS,
-    fullNum
+    fullNum,
+    getSystemAndVersion
 } = require('./utils/index.js')
 
 
@@ -21,7 +22,20 @@ const {
  *
  * **/
 
-let errors = [];
+
+app.use(express.static('dist', {
+    dotfiles: 'ignore',
+    etag: false,
+    extensions: [ 'html','js','css','json'],
+    index: false,
+    maxAge: '1d',
+    redirect: false,
+    setHeaders: function (res, path, stat) {
+        res.set('x-timestamp', Date.now())
+    }
+}))
+
+
 
 /**
  *
@@ -51,8 +65,12 @@ let errors = [];
  * **/
 
 
-app.get('/index', async function (req, response) {
+app.get('/apiFrontEndMonitor/reportVueError', async function (req, response) {
     // console.log('req:',req.query,req.params);
+
+    const {
+
+    } = req.headers;
 
     let {
         fileName,
@@ -62,7 +80,6 @@ app.get('/index', async function (req, response) {
         message,
 
         hostname,//环境 按照域名划分
-        useragent,
         ...rest
     } = req.query;
 
@@ -80,7 +97,11 @@ app.get('/index', async function (req, response) {
         reportType,
         message,
         hostname,
-        useragent
+        userSystemInfo:{
+            useragent:req.headers['user-agent'],
+            ...getSystemAndVersion(req.headers['user-agent'] || '')
+        },
+
     });
 
     response.json({
@@ -110,7 +131,7 @@ async function reduceVueConfigError({
                                         reportType='vueConfigError',
                                         message='',
                                         hostname='dev-m.gumingnc.com',
-                                        useragent=''
+                                        ...rest
 } = config) {
 
     return new Promise(function (resolve, reject) {
@@ -150,7 +171,6 @@ async function reduceVueConfigError({
                         line,//源码行
                         column,// 源码列
                         name,//出错参数
-                        ...rest
                     } = pos;
 
 
@@ -178,7 +198,7 @@ async function reduceVueConfigError({
 
 
                     //生成环境和报错内容目录
-                    let hostErrorTypeDir = `./${hostname}/${reportType}`
+                    let hostErrorTypeDir = `./dist/${hostname}/${reportType}`
                     await makeDeepDir(hostErrorTypeDir);
 
 
@@ -199,7 +219,7 @@ async function reduceVueConfigError({
                             source:(source||'').trim(),
                             originCode: (rawLines[pos.line - 1]||'').trim(),
                             hostname,
-                            useragent,
+                            ...rest
                         });
 
                         arrData.total+=1;

@@ -1,9 +1,23 @@
-async function getSystemAndVersion(useragent){
+function getSystemAndVersion(useragent){
     if((useragent.match(/iPhone/i) || useragent.match(/iPod/i))) {// ios系统
         // 判断系统版本号是否大于 4
-        return Boolean(navigator.userAgent.match(/OS [5-9]_\d[_\d]* like Mac OS X/i));
+
+        let version = '';
+        let versionsMatch = useragent.match(/\d+(_\d+)+/ig)
+
+        return {
+            system:'ios',
+            version:versionsMatch.length ? versionsMatch[0]:''
+        }
     } else {
-        return false;
+
+        let versionsMatch = useragent.match(/Android\s+\d+(\.\d+)+/ig)
+
+        console.log('versionsMatch:',useragent,versionsMatch);
+        return {
+            system:'android',
+            version:(versionsMatch && versionsMatch.length) ? versionsMatch[0] : ''
+        }
     }
 }
 
