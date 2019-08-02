@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 
 const {
     moment,
@@ -7,9 +5,16 @@ const {
     Component
 } = window;
 
+
+const {
+    useState,
+    useEffect
+} = React;
+
 const {
     Card,
     Row,
+    Table,
     Col,
     Tag,
     Select,
@@ -34,92 +39,107 @@ import styles from './index.less';
 
 const modelName='OnlineError';
 
-class OnlineError extends Component {
-    state = {}
 
-    componentDidMount() {
-        const {
-            OnlineError,
-            dispatch
-        }=this.props;
+const OnlineError = (props)=>{
 
-        const {
-            surrenderDate
-        }=OnlineError;
 
-        //获取交单时间下拉框列表
+    const {
+        app={},
+        OnlineError,
+        dispatch
+    }=props;
+
+    const {
+        menu,
+        user={}
+    }=app;
+
+
+    useEffect(()=>{
         dispatch({
             type:`${modelName}/getLatestError`,
             payload:{
             }
         });
+    },[]);
 
-    }
-    componentWillUnmount(){
-        const {
-            dispatch,
-            Home,
-        }=this.props;
 
-        const {
-            orderCount,
-            orderDetailData
-        }=Home;
+    const {
+        list,
+    }=OnlineError;
 
-        this.props.dispatch({
-            type:`${modelName}/updateState`,
-            payload:{
-                surrenderDate:'',
-                orderCount,
-                orderDetailData
+    console.log('list:',list);
+
+
+    const columns = [
+        {
+            title: '平台信息',
+            key: 'userSystemInfo',
+            width:300,
+            render:(row) => {
+                const {
+                    userSystemInfo = {}
+                } = row || {}
+                return <div>
+                    <p>{userSystemInfo.system || ''}</p>
+                    <p>
+                        {userSystemInfo.useragent || ''}
+                    </p>
+                </div>;
+            },
+        },
+        {
+            title: '项目',
+            dataIndex: 'hostname',
+            key: 'hostname',
+        },
+        {
+            title: '文件',
+            dataIndex: 'source',
+            key: 'source',
+        },
+        {
+            title: '源码',
+            dataIndex: 'originCode',
+            key: 'originCode',
+        },
+        {
+            title: '位置',
+            // dataIndex: 'shippingMethod',
+            key: 'orderType',
+            render(row, item) {
+                return <Tag color={item.type ? "#eb2f96" : "#1890ff"}>{item.type ? '预售' : '正常'}</Tag>
             }
-        });
-    }
+        }
+    ]
+    return (
+        <div className={styles.errorContainer}>
 
-    render() {
+            <Card title={'js报错'}>
+                <Table
+                    dataSource={list}
+                    pagination={false}
+                    bordered
+                    columns={columns}
+                    simple
+                    rowKey={record => record.id}
+                />
+                {
+                    (list||[]).map(function (item,i) {
+                        return <div className={styles.errorRow}>
+                            <p className={styles.source}>{item.source}{item.source}{item.source}</p>
+                            <p className={styles.name}>{item.name}</p>
+                            <p className={styles.originCode}> {item.originCode}</p>
+                            <p className={styles.createTime}>{item.createTime}</p>
+                        </div>
+                    })
+                }
+            </Card>
 
-        const {
-            getSurrenderData
-        }=this;
+        </div>
+    )
+}
 
-        const {
-            app={},
-            OnlineError,
-        }=this.props;
-
-        const {
-            menu,
-            user={}
-        }=app;
-
-
-        const {
-            list,
-        }=OnlineError;
-
-        console.log('list:',list);
-
-        return (
-            <div className={styles.homeContainer}>
-                <Row gutter={10} >
-                    <Card title={'2213'}>
-                        {
-                            (list||[]).map(function (item,i) {
-                                return <div>
-                                    {item.source}
-                                    {item.name}
-                                    {item.originCode}
-                                    {item.createTime}
-                                </div>
-                            })
-                        }
-                    </Card>
-
-                </Row>
-            </div>
-        )
-    }
-};
 
 export default connect(({
                             app,

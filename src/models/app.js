@@ -81,7 +81,7 @@ export default {
             const menuPlainData = [
                 {
                     "name": "错误统计",
-                    "id": 26,
+                    "id": 1,
                     "icon": "bar-chart",
                     "menuCode": "001001",
                     "menuPcode": "001",
@@ -89,24 +89,24 @@ export default {
                 },
                 {
                     "name": "性能分析",
-                    "id": 4,
+                    "id": 2,
                     "icon": "shop",
                     "menuCode": "001002",
                     "menuPcode": "001001"
                 },
                 {
                     "name": "行为检索",
-                    "id": 2,
+                    "id": 3,
                     "icon": "book",
-                    "menuCode": "001001",
+                    "menuCode": "001003",
                     "menuPcode": "001",
                     "route": "/orders"
                 },
                 {
                     "name": "性能分析",
-                    "id": 3,
+                    "id": 4,
                     "icon": "shop",
-                    "menuCode": "001002",
+                    "menuCode": "001004",
                     "menuPcode": "001"
                 },
                 ];
