@@ -1,0 +1,42 @@
+@import "../../../../node_modules/antd/lib/style/themes/default.less";
+
+.tableList {
+    :global {
+
+    }
+    .alignLeft {
+        text-align: left;
+    }
+}
+
+.card{
+    :global {
+        .ant-card-head{
+            padding: 0 0;
+        }
+    }
+}
+
+
+.middleMsg{
+    display: flex;
+    margin:15px 0;
+    line-height: 20px;
+    p{
+        &:nth-child(1){
+            flex:1;
+            span {
+                color:#666;
+            }
+        }
+        &:nth-child(2){
+            width:200px;
+            font-size: 14px;
+            text-align: right;
+            font-weight: 500;
+            span{
+                color:red;
+            }
+        }
+    }
+}

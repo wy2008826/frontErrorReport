@@ -1,0 +1,30 @@
+.orderFilterContain {
+  display: flex;
+  margin-bottom: 10px;
+  font-family: -apple-system,BlinkMacSystemFont,PingFang SC,Helvetica Neue,STHeiti,Microsoft Yahei,Tahoma,Simsun,sans-serif;
+  .orderFilter {
+    box-sizing: border-box;
+    flex: 1;
+    margin: 0 10px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    cursor: pointer;
+    &.OrderFilterActive {
+      border: 1px dashed #40a9ff;
+      color: #40a9ff;
+    }
+    &.OrderFilterActive .orderFilterNumber {
+      color: #40a9ff;
+    }
+    .orderFilterNumber {
+      color: red;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+  }
+}

@@ -63,6 +63,44 @@ app.use(express.static('dist', {
  * hostname   域名  {required true}
  *
  * **/
+app.post('/queryLatestError',async function(req,res){
+    let data = '';
+    req.on('data', function (chunk) {
+     　　data += chunk;
+     });
+    req.on('end', function () {
+         data = JSON.parse(data);
+         console.log('req.params:',req.params,req.query,data);
+         res.json({
+             data
+         })
+     });
+
+});
+
+
+app.get('/queryLatestError',async function(req,res){
+
+    let url = './dist/dev-m.gumingnc.com/vueConfigError/20190801.json'
+    fs.stat(url,async function (error,stat) {
+        if(error){
+            res.json({
+                result:[],
+                code:1
+            })
+        }else{
+            let fileData = fs.readFileSync(url,'utf-8');
+            fileData = JSON.parse(fileData)
+            res.json({
+                result:fileData.data||[],
+                total:fileData.total || 0,
+                code:1
+            })
+        }
+    });
+
+});
+
 
 
 app.get('/apiFrontEndMonitor/reportVueError', async function (req, response) {

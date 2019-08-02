@@ -1,0 +1,180 @@
+@import "~themes/vars";
+
+body {
+    font-family: arial;
+    font-size:14px;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #e6e6e6;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+:global {
+    .ant-menu-vertical .ant-menu-item, .ant-menu-inline .ant-menu-item, .ant-menu-vertical .ant-menu-submenu-title, .ant-menu-inline .ant-menu-submenu-title{
+        font-size:14px;
+    }
+
+    //表格中包含表单域的时候  控制表格的内边距
+
+    //表格中有表单项的时候  控制表单项的样式
+    .ant-table-wrapper{
+        &.smallTable{
+            th,td{
+                padding:8px 8px !important;
+            }
+        }
+        .ant-form-item{
+            margin:0 !important;
+        }
+    }
+
+    .ant-breadcrumb {
+        & > span {
+            &:last-child {
+                color: #999;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .ant-breadcrumb-link {
+        .anticon + span {
+            margin-left: 4px;
+        }
+    }
+
+    .ant-table {
+        .ant-table-thead > tr > th {
+            text-align: center;
+        }
+
+        .ant-table-tbody > tr > td {
+            text-align: center;
+        }
+
+        &.ant-table-small {
+            .ant-table-thead > tr > th {
+                background: #f7f7f7;
+            }
+
+            .ant-table-body > table {
+                padding: 0;
+            }
+        }
+
+
+    }
+
+    .ant-table-pagination {
+        float: none !important;
+        display: table;
+        margin: 16px auto !important;
+    }
+
+    .ant-popover-inner {
+        border: none;
+        border-radius: 0;
+        box-shadow: 0 0 20px rgba(100, 100, 100, 0.2);
+    }
+
+    .vertical-center-modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .ant-modal {
+            top: 0;
+
+            .ant-modal-body {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+    }
+
+    .ant-form-item-control {
+        vertical-align: middle;
+    }
+
+    .ant-modal-mask {
+        background-color: rgba(55, 55, 55, 0.2);
+    }
+
+    .ant-modal-content {
+        box-shadow: none;
+    }
+
+    .ant-select-dropdown-menu-item {
+        padding: 12px 16px !important;
+    }
+
+    .margin-right {
+        margin-right: 16px;
+    }
+
+    a:focus {
+        text-decoration: none;
+    }
+}
+
+@media (min-width: 1600px) {
+    :global {
+        .ant-col-xl-48 {
+            width: 20%;
+        }
+
+        .ant-col-xl-96 {
+            width: 40%;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    :global {
+        .ant-pagination-item,
+        .ant-pagination-next,
+        .ant-pagination-options,
+        .ant-pagination-prev {
+            margin-bottom: 8px;
+        }
+
+        .ant-card {
+            .ant-card-head {
+                padding: 0 12px;
+            }
+
+            .ant-card-body {
+                padding: 12px;
+            }
+        }
+    }
+}
+
+:global {
+    .myCalendar{
+        .ant-fullcalendar td{
+            border:1px solid #e9e9e9;
+            vertical-align: top;
+        }
+        .ant-fullcalendar-fullscreen .ant-fullcalendar-content{
+            height:auto;
+            overflow-y: auto;
+            position: relative;
+        }
+        .ant-fullcalendar-fullscreen .ant-fullcalendar-month, .ant-fullcalendar-fullscreen .ant-fullcalendar-date{
+            height:100%;
+            min-height: 80px;
+            border-top:0;
+            margin:0;
+        }
+    }
+}
+

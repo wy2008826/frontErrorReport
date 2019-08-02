@@ -1,0 +1,127 @@
+
+.homeContainer{
+    :global{
+        .ant-card-head{
+            padding:0 20px;
+        }
+        .ant-card-body{
+            padding:10px 20px;
+        }
+    }
+}
+
+:global{
+    .g2-legend-list-item{
+        width:80px;
+        margin-right:0 !important;
+        padding-right:0px;
+    }
+}
+
+
+.cardTitle{
+    position: relative;
+    padding-left:10px;
+    &:before{
+        content:'';
+        display:block;
+        width:2px;
+        height:20px;
+        background-color:#f50;
+
+        position: absolute;
+        top:50%;
+        left:0;
+        margin-top:-10px;
+    }
+}
+
+//第一行的card样式
+.homeRow1{
+    :global{
+        .ant-card-body{
+            min-height: 110px;
+        }
+    }
+}
+
+//第四行的card样式
+.homeRow4{
+    :global{
+        .ant-card-body{
+            height: 300px;
+        }
+    }
+}
+
+.flexBox{
+    display: flex;
+    .normalMsg{
+        flex:1;
+    }
+}
+
+//普通数据信息
+.normalMsg{
+    padding: 20px 0;
+    font-size: 14px;
+    display: block;
+    span,a{
+        color:#f50;
+    }
+}
+
+//订货统计的legend样式
+.lineLegend{
+    line-height: 30px;
+    text-align: center;
+    label{
+        display: inline-block;
+        margin:0 20px;
+        cursor: pointer;
+        span{
+            display: inline-block;
+            width:10px;
+            height:10px;
+            background:#f95;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            margin:0 5px;
+        }
+    }
+}
+
+//店铺列表样式
+.shopItem {
+    line-height: 40px;
+    border-bottom: 1px solid #f8f8f8;
+    span{
+        float:right;
+        color:#999;
+    }
+}
+
+.logo {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+    margin-bottom: 24px;
+
+    img {
+        width: 40px;
+        margin-right: 8px;
+    }
+
+    span {
+        vertical-align: text-bottom;
+        font-size: 16px;
+        text-transform: uppercase;
+        display: inline-block;
+    }
+}
+
+.ant-spin-container,
+.ant-spin-nested-loading {
+    height: 100%;
+}

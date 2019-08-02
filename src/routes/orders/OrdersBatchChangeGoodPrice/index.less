@@ -1,0 +1,90 @@
+@import "~antd/lib/style/themes/default.less";
+
+.leftHeader{
+    font-size:12px;
+    font-weight: normal;
+    line-height:34px;
+    text-indent:10px;
+    :global{
+        .ant-card-head{
+            padding:0 20px;
+        }
+    }
+}
+
+.allWraper{
+    display: flex;
+    @border:1px solid #f4f4f4;
+    border:@border;
+    .leftWraper{
+        width:200px;
+        padding:10px 0;
+        ul{
+            min-height:500px;
+            max-height:800px;
+            overflow-y: auto;
+            border-bottom:@border;
+            padding-top:5px;
+            li{
+                @activeColor :#2db7f5;
+                line-height: 38px;
+                text-indent: 15px;
+                margin:5px 0;
+                cursor: pointer;
+                &.active{
+                    border-left: 3px solid @activeColor;
+                    color:#2db7f5;
+                    background-color: #f5f5f5;
+                }
+                :global{
+                    .anticon{
+                        float:right;
+                        line-height: 38px;
+                        margin-right:20px;
+                        color:@activeColor;
+                    }
+                }
+            }
+        }
+    }
+    .leftFooter{
+        line-height: 30px;
+        text-align: center;
+    }
+    .rightWraper{
+        flex:1;
+        padding:10px;
+        border-left:@border;
+    }
+
+}
+
+
+.smallTab{
+    :global{
+        .ant-table-thead{
+            th{
+                padding:10px 8px;
+            }
+        }
+        .ant-table-tbody{
+            td{
+                padding:5px 8px;
+            }
+        }
+        .ant-form-item{
+            margin-bottom: 0;
+        }
+    }
+}
+
+
+.bottomFixed{
+    position:fixed;
+    right:32px;
+    bottom:0;
+    background:#fff;
+    text-align:center;
+    padding:20px;
+    border-top:1px solid #f5f5f5;
+}

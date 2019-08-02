@@ -1,0 +1,53 @@
+.container {
+  cursor: pointer;
+  background: #fff;
+  padding: 10px;
+  display: inline-block;
+  ul {
+    padding-left: 20px;
+    position: relative;
+  }
+  li {
+    position: relative;
+  }
+  p {
+    height: 30px;
+    min-width: 150px;
+    line-height: 30px;
+    padding-right: 35px;
+  }
+  :global {
+    .anticon-caret-right,
+    .anticon-caret-down {
+      position: absolute;
+      left: -20px;
+      font-size: 12px;
+      transform: translate(0, 78%);
+    }
+    .anticon-bars {
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translate(0, 50%);
+    }
+  }
+  button {
+    width: 100%;
+    min-width: 200px;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.hideChildren {
+  ul {
+    display: none;
+  }
+}
+
+.activeItem {
+  color: #108ee9;
+  font-weight: 900;
+}

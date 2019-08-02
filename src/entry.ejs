@@ -1,0 +1,43 @@
+<% htmlWebpackPlugin.options.headScripts = htmlWebpackPlugin.options.headScripts || [] %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="古茗茶饮连锁管理系统">
+  <style>
+    .135editor {
+        border: 0 none
+    }
+  </style>
+  <title>古茗电商</title>
+  <!--[if lte IE 10]>
+      <script
+        src="https://as.alipayobjects.com/g/component/??console-polyfill/0.2.2/index.js,media-match/2.0.2/media.match.min.js"></script>
+  <![endif]-->
+  <script>
+
+          //地图内部调用的接口依据 HOST_TYPE 字段决定是走http协议还是https协议
+        if(window.location.protocol=='https:'){
+            window.HOST_TYPE = "2"
+        }
+    </script>
+    
+  <% for (item of htmlWebpackPlugin.options.headScripts) { %>
+    <script src="<%= item %>"></script>
+  <% } %>
+  <script src="//api.map.baidu.com/getscript?v=2.0&ak=55Y2OPUH8Y26X68pZwCNuVVT4ydw4mQP&services=&t=20180420162325&s=1"></script>
+
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <% for (item of htmlWebpackPlugin.options.footerScripts) { %>
+      <script src="<%= item %>"></script>
+    <% } %>
+</body>
+
+</html>

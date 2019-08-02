@@ -1,0 +1,122 @@
+@import "../../../node_modules/antd/lib/style/themes/default.less";
+
+.tableList {
+    :global {
+
+    }
+    .alignLeft {
+        text-align: left;
+    }
+}
+
+//card的title样式
+.cardHead{
+    text-align: center;
+    background: #f5f5f5;
+}
+
+.cardWithHeight{
+    :global{
+        .ant-card-body{
+            height:400px;
+            overflow-y:auto;
+        }
+    }
+}
+
+//step0 的样式
+.downloadBtn {
+    float: right;
+}
+
+.inputArea {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+    :global {
+        .ant-upload {
+            min-height: 150px;
+        }
+        .ant-upload-list {
+            position: absolute;
+            width: auto;
+            padding: 0 50px;
+            top:50%;
+            left: 50%;
+            text-align: center;
+            transform: translate(-50%,-50%);
+            vertical-align: middle;
+        }
+        .ant-upload-list-item {
+            overflow: hidden;
+            padding-right: 30px;
+        }
+        .ant-upload-list-item-name {
+            font-size: 14px;
+            width: auto;
+        }
+        .ant-upload-list-item .anticon-cross {
+            opacity: 1;
+            font-size: 18px !important;
+            color: red;
+        }
+    }
+}
+
+.bottomBtn {
+    width: 100%;
+    margin-top: 50px;
+    text-align: center;
+    div {
+        display: inline;
+    }
+    :global {
+        .ant-btn {
+            width: 100px;
+            margin: 0 30px;
+        }
+    }
+}
+
+//step1的样式
+.verify {
+    margin-bottom: 10px;
+    span {
+        font-size: 14px;
+    }
+}
+
+
+//step2 的样式
+
+.step2{
+    height: 400px;
+    position: relative;
+    div {
+        p {
+            margin: 20px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    :global {
+        .anticon {
+            font-size: 50px;
+            color: #108ee9;
+            width: 50px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-20%, -110%);
+        }
+        .ant-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-30%, 180%);
+        }
+    }
+}
