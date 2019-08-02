@@ -1,7 +1,7 @@
 const APIV1 = '/api/v1'
 const APIV2 = '/api/v2'
 
-const apiPrefix = '/apiFrontEndMonitor'
+const apiPrefix = '/api'
 
 module.exports = {
     name: '前端监控', //

@@ -79,7 +79,7 @@ app.post('/queryLatestError',async function(req,res){
 });
 
 
-app.get('/queryLatestError',async function(req,res){
+app.get('/api/queryLatestError',async function(req,res){
 
     let url = './dist/dev-m.gumingnc.com/vueConfigError/20190801.json'
     fs.stat(url,async function (error,stat) {
@@ -103,7 +103,7 @@ app.get('/queryLatestError',async function(req,res){
 
 
 
-app.get('/apiFrontEndMonitor/reportVueError', async function (req, response) {
+app.get('/api/reportVueError', async function (req, response) {
     // console.log('req:',req.query,req.params);
 
     const {
