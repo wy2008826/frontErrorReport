@@ -23,7 +23,7 @@ export default {
     proxy: {
         "/api": {
             //本地开发代理
-            "target": "http://localhost:9000",//测试服务器
+            "target": "http://localhost:9001",//测试服务器
             secure: false,
             changeOrigin: true,
             // pathRewrite: { "^/api": "" }

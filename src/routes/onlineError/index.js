@@ -68,49 +68,54 @@ const OnlineError = (props)=>{
         list,
     }=OnlineError;
 
-    console.log('list:',list);
-
 
     const columns = [
         {
             title: '平台信息',
             key: 'userSystemInfo',
-            width:300,
+            width:200,
             render:(row) => {
                 const {
                     userSystemInfo = {}
                 } = row || {}
                 return <div>
                     <p>{userSystemInfo.system || ''}</p>
-                    <p>
+                    <p className={styles.userAgent}>
                         {userSystemInfo.useragent || ''}
                     </p>
                 </div>;
             },
         },
         {
-            title: '项目',
+            title: '时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
+        },
+        {
+            title: '所在项目',
             dataIndex: 'hostname',
             key: 'hostname',
         },
         {
-            title: '文件',
+            title: '出错源文件',
             dataIndex: 'source',
             key: 'source',
         },
         {
-            title: '源码',
-            dataIndex: 'originCode',
-            key: 'originCode',
+            title: '出错行号',
+            dataIndex: 'line',
+            key: 'line',
         },
         {
-            title: '位置',
-            // dataIndex: 'shippingMethod',
-            key: 'orderType',
-            render(row, item) {
-                return <Tag color={item.type ? "#eb2f96" : "#1890ff"}>{item.type ? '预售' : '正常'}</Tag>
+            title: '出错源码',
+            // dataIndex: 'originCode',
+            key: 'originCode',
+            render: row => {
+                return  <p className={styles.originCode}>
+                    {row.originCode}
+                </p>
             }
-        }
+        },
     ]
     return (
         <div className={styles.errorContainer}>
@@ -124,18 +129,7 @@ const OnlineError = (props)=>{
                     simple
                     rowKey={record => record.id}
                 />
-                {
-                    (list||[]).map(function (item,i) {
-                        return <div className={styles.errorRow}>
-                            <p className={styles.source}>{item.source}{item.source}{item.source}</p>
-                            <p className={styles.name}>{item.name}</p>
-                            <p className={styles.originCode}> {item.originCode}</p>
-                            <p className={styles.createTime}>{item.createTime}</p>
-                        </div>
-                    })
-                }
             </Card>
-
         </div>
     )
 }

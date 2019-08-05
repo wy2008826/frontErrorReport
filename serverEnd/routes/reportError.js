@@ -1,109 +1,24 @@
 let express = require("express");
+let router = express.Router();
 let fs = require('fs');
 let path = require('path');
-let http = require('http');
+
 let SourceMap = require('source-map');
-let app = express();
-
-let {
-    getYMSHMS,
-    fullNum,
-    getSystemAndVersion
-} = require('./utils/index.js')
-
-
 const {
     SourceMapConsumer,
     SourceNode
 } = SourceMap;
 
-/**
- * 接收来自web端提交的错误的请求
- *
- * **/
 
+let {
+    getYMSHMS,
+    fullNum,
+    getSystemAndVersion,
+    writeFile
+} = require('../utils/index.js')
 
-app.use(express.static('dist', {
-    dotfiles: 'ignore',
-    etag: false,
-    extensions: [ 'html','js','css','json'],
-    index: false,
-    maxAge: '1d',
-    redirect: false,
-    setHeaders: function (res, path, stat) {
-        res.set('x-timestamp', Date.now())
-    }
-}))
-
-
-
-/**
- *
- * 错误上报
- * 数据埋点
- * 性能监控 =>  页面加载时长、
- * 用户画像
- * 手机型号、系统、版本号 userAgent
- * 用户行为分析
- * 页面到达率、停留时长 分析
- *
- *
- *
- * **/
-
-
-/**
- * @params
- *
- * fileName 文件名称:String
- * lineNum  错误行号:Number
- * colNum   错误列号:Number
- * reportType 上报类型:String  {required true}
- *            【windowOnerror,vueConfigError,ajaxError】
- * hostname   域名  {required true}
- *
- * **/
-app.post('/queryLatestError',async function(req,res){
-    let data = '';
-    req.on('data', function (chunk) {
-     　　data += chunk;
-     });
-    req.on('end', function () {
-         data = JSON.parse(data);
-         console.log('req.params:',req.params,req.query,data);
-         res.json({
-             data
-         })
-     });
-
-});
-
-
-app.get('/api/queryLatestError',async function(req,res){
-
-    let url = './dist/dev-m.gumingnc.com/vueConfigError/20190801.json'
-    fs.stat(url,async function (error,stat) {
-        if(error){
-            res.json({
-                result:[],
-                code:1
-            })
-        }else{
-            let fileData = fs.readFileSync(url,'utf-8');
-            fileData = JSON.parse(fileData)
-            res.json({
-                result:fileData.data||[],
-                total:fileData.total || 0,
-                code:1
-            })
-        }
-    });
-
-});
-
-
-
-app.get('/api/reportVueError', async function (req, response) {
+//上报 vue类错误
+router.get('/api/reportVueError', async function (req, response) {
     // console.log('req:',req.query,req.params);
 
     const {
@@ -170,7 +85,7 @@ async function reduceVueConfigError({
                                         message='',
                                         hostname='dev-m.gumingnc.com',
                                         ...rest
-} = config) {
+                                    } = config) {
 
     return new Promise(function (resolve, reject) {
         let url = `${fileName}.map`//
@@ -279,36 +194,5 @@ async function reduceVueConfigError({
 }
 
 
-async function writeFile(file_name_with_url,data){
-    return new Promise(function(resolve,reject){
-        fs.writeFile(file_name_with_url,typeof data==='string' ? data : JSON.stringify(data,null,'\t'),"utf8",function(err,data){
-            if(err){
-                console.log(err);
-                resolve(err);
-            }else{
-                console.log(`数据写入成功`);
-                resolve(true);
-            }
-        });
-    });
-}
+module.exports = router;
 
-//生成多层路由
-function makeDeepDir(dir,cb){
-    return new Promise(async function(resolve,reject){
-        let dirArr = dir.split('/');
-        for(let i=1;i<dirArr.length;i++){
-            let dir = dirArr.slice(0,i+1).join('/');
-            if (!fs.existsSync(dir)) {
-                fs.mkdirSync(dir)
-            }
-        }
-        resolve(true)
-    })
-}
-
-
-
-console.log('server is running on port 9000');
-
-app.listen(9000);

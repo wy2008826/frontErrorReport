@@ -88,14 +88,15 @@ export default {
                     "route": "/onlineError"
                 },
                 {
-                    "name": "性能分析",
+                    "name": "页面访问率",
                     "id": 2,
                     "icon": "shop",
                     "menuCode": "001002",
-                    "menuPcode": "001001"
+                    "menuPcode": "001",
+                    "route": "/orders"
                 },
                 {
-                    "name": "行为检索",
+                    "name": "数据埋点",
                     "id": 3,
                     "icon": "book",
                     "menuCode": "001003",
@@ -107,9 +108,10 @@ export default {
                     "id": 4,
                     "icon": "shop",
                     "menuCode": "001004",
-                    "menuPcode": "001"
+                    "menuPcode": "001",
+                    "route": "/orders"
                 },
-                ];
+            ];
 
             yield put({
                 type: 'updateState',

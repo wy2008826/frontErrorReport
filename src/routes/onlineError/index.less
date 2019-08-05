@@ -1,12 +1,5 @@
 
 
-:global{
-    .g2-legend-list-item{
-        width:80px;
-        margin-right:0 !important;
-        padding-right:0px;
-    }
-}
 
 .errorContainer{
     :global{
@@ -14,31 +7,13 @@
             padding:5px;
         }
     }
-    .errorRow{
-        padding:5px 0;
-        cursor:pointer;
-        display: flex;
-        &:hover{
-            background: #f8f8f8;
-        }
-
-        p{
-            flex:1;
-            &.source{
-                width:1px;
-                overflow-x: auto;
-            }
-
-            &.originCode{
-                width:1px;
-                overflow-x: auto;
-                color:#f95;
-            }
-            &.createTime{
-                width:100px;
-                text-align: right;
-            }
-        }
-
+    .userAgent{
+        width:200px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+    }
+    .originCode{
+        color:#f95;
     }
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env BROWSER=none HOST=0.0.0.0 roadhog server",
     "start": "roadhog buildDll & cross-env BROWSER=none HOST=0.0.0.0 port=8999 roadhog server",
-    "server": "node ./errorServer.js",
+    "server": "node ./app.js",
     "lint": "eslint --fix --ext .js src",
     "build": "roadhog build",
     "build:debug": "roadhog build  --debug",
