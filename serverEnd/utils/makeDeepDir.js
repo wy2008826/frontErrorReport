@@ -1,3 +1,6 @@
+let fs = require('fs');
+
+
 //生成多层路由
 module.exports = async function (dir,cb){
     return new Promise(async function(resolve,reject){

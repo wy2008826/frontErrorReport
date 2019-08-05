@@ -29,17 +29,27 @@ app.use(express.static('dist', {
 
 
 
-// 错误上报服务
+/**
+ *  错误上报服务
+ *  c端 vue 报错
+ *
+ * **/
+
 app.use('/', reportError);
 
-// 错误查询服务
+
+/**
+ * 错误查询服务
+ *
+ * **/
 app.use('/', searchError);
+
+
 
 
 
 /**
  *
- * 错误上报
  * 数据埋点
  * 性能监控 =>  页面加载时长、
  * 用户画像
@@ -48,19 +58,6 @@ app.use('/', searchError);
  * 页面到达率、停留时长 分析
  *
  *
- *
- * **/
-
-
-/**
- * @params
- *
- * fileName 文件名称:String
- * lineNum  错误行号:Number
- * colNum   错误列号:Number
- * reportType 上报类型:String  {required true}
- *            【windowOnerror,vueConfigError,ajaxError】
- * hostname   域名  {required true}
  *
  * **/
 

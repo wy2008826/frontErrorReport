@@ -2,6 +2,7 @@ let express = require("express");
 let router = express.Router();
 let fs = require('fs');
 let path = require('path');
+let http = require('http');
 
 let SourceMap = require('source-map');
 const {
@@ -14,10 +15,24 @@ let {
     getYMSHMS,
     fullNum,
     getSystemAndVersion,
-    writeFile
+    writeFile,
+    makeDeepDir
 } = require('../utils/index.js')
 
-//上报 vue类错误
+
+/** 上报 vue类错误
+ * @params
+ *
+ * fileName 文件名称:String
+ * lineNum  错误行号:Number
+ * colNum   错误列号:Number
+ * reportType 上报类型:String  {required true}
+ *            【windowOnerror,vueConfigError,ajaxError】
+ * hostname   域名  {required true}
+ *
+ * **/
+
+
 router.get('/api/reportVueError', async function (req, response) {
     // console.log('req:',req.query,req.params);
 
@@ -28,10 +43,10 @@ router.get('/api/reportVueError', async function (req, response) {
     let {
         fileName,
         lineNum = 1,//行号
-        colNum = 13560,//列号
+        colNum = 13530,//列号
         reportType,// windowOnerror vueConfigError ajaxError  等
-        message,
 
+        message,
         hostname,//环境 按照域名划分
         ...rest
     } = req.query;
@@ -57,28 +72,25 @@ router.get('/api/reportVueError', async function (req, response) {
 
     });
 
-    response.json({
-        success: true,
-        msg: '错误信息上报记录成功！',
-        pos,
-
-    });
-    return false;
-
-
-
-    // 接口 500
-    //前端页面报错
-    //
-
-
+    if(pos.success){
+        response.json({
+            success: true,
+            msg: '错误信息上报记录成功！',
+            pos,
+        });
+    }else{
+        response.json({
+            success: false,
+            msg: pos.message,
+        });
+    }
 })
 
 
 
 
 async function reduceVueConfigError({
-                                        fileName = 'http://dev-m.gumingnc.com/order/chunk/39-39-30bfd55ebaab9248bfb7.js',
+                                        fileName = 'http://dev-m.gumingnc.com/order/chunk/40-40-9512e29e3c6e74c3eb88.js',
                                         lineNum,
                                         colNum,
                                         reportType='vueConfigError',
@@ -94,9 +106,11 @@ async function reduceVueConfigError({
         http.get(url, function (res) {
             const { statusCode } = res;
 
+
             if(statusCode !== 200){//错误处理
                 resolve({
-                    message:`远程文件 ${url} 未找到或下载失败，请检查 webpack打包是否开启了sourcemap ！`
+                    message:`远程文件 ${url} 未找到或下载失败，请检查 webpack打包是否开启了sourcemap ！`,
+                    success:false
                 });
             }
 
@@ -138,7 +152,7 @@ async function reduceVueConfigError({
                     let smContent = consumer.sourcesContent[smIndex]; // 到源码列表中查到源代码
                     const rawLines = smContent.split(/\r?\n/g); // 将源代码串按"行结束标记"拆分为数组形式
 
-                    console.log(rawLines[pos.line - 2],rawLines[pos.line - 1], rawLines[pos.line]); // 输出源码行，因为数组索引从0开始，故行数需要-1
+                    // console.log(rawLines[pos.line - 2],rawLines[pos.line - 1], rawLines[pos.line]); // 输出源码行，因为数组索引从0开始，故行数需要-1
 
                     let {
                         year,
@@ -151,11 +165,12 @@ async function reduceVueConfigError({
 
 
                     //生成环境和报错内容目录
-                    let hostErrorTypeDir = `./dist/${hostname}/${reportType}`
+                    let hostErrorTypeDir = path.resolve(__dirname,`../../dist/${hostname}/${reportType}`);
+
                     await makeDeepDir(hostErrorTypeDir);
 
 
-                    let fileName = `${hostErrorTypeDir}/${year}${month<10? ('0'+month) : month}${date<10? ('0'+date) : date}.json`
+                    let fileName = `${hostErrorTypeDir}/${year}${fullNum(month)}${fullNum(date)}.json`
 
                     fs.stat(fileName,async function (error,stat) {
                         if(error){
@@ -182,7 +197,8 @@ async function reduceVueConfigError({
 
                     resolve({
                             ...pos,
-                            originCode: rawLines[pos.line - 1]
+                            originCode: rawLines[pos.line - 1],
+                            success:true
                         }
                     );
 

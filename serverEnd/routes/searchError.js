@@ -30,7 +30,17 @@ router.post('/queryLatestError',async function(req,res){
 
 router.get('/api/queryLatestError',async function(req,res){
 
-    console.log('queryLatestError');
+    let {
+        year,
+        month,
+        date,
+    } = getYMSHMS();
+
+    let {
+        domainName = 'dev-m.gumingnc.com',
+        errorType='vueConfigError',
+        time=`${year}${fullNum(month)}${fullNum(date)}`,
+    } = req.query;
 
     /**
      * 项目
@@ -38,7 +48,7 @@ router.get('/api/queryLatestError',async function(req,res){
      * 错误类型
      * **/
 
-    let url = path.resolve(__dirname,'../../dist/dev-m.gumingnc.com/vueConfigError/20190801.json')
+    let url = path.resolve(__dirname,`../../dist/${domainName}/${errorType}/${time}.json`)
     fs.stat(url,async function (error,stat) {
         if(error){
             res.json({
