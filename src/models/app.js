@@ -87,30 +87,30 @@ export default {
                     "menuPcode": "001",
                     "route": "/onlineError"
                 },
-                {
-                    "name": "页面访问率",
-                    "id": 2,
-                    "icon": "shop",
-                    "menuCode": "001002",
-                    "menuPcode": "001",
-                    "route": "/orders"
-                },
-                {
-                    "name": "数据埋点",
-                    "id": 3,
-                    "icon": "book",
-                    "menuCode": "001003",
-                    "menuPcode": "001",
-                    "route": "/orders"
-                },
-                {
-                    "name": "性能分析",
-                    "id": 4,
-                    "icon": "shop",
-                    "menuCode": "001004",
-                    "menuPcode": "001",
-                    "route": "/orders"
-                },
+                // {
+                //     "name": "页面访问率",
+                //     "id": 2,
+                //     "icon": "shop",
+                //     "menuCode": "001002",
+                //     "menuPcode": "001",
+                //     "route": "/orders"
+                // },
+                // {
+                //     "name": "数据埋点",
+                //     "id": 3,
+                //     "icon": "book",
+                //     "menuCode": "001003",
+                //     "menuPcode": "001",
+                //     "route": "/orders"
+                // },
+                // {
+                //     "name": "性能分析",
+                //     "id": 4,
+                //     "icon": "shop",
+                //     "menuCode": "001004",
+                //     "menuPcode": "001",
+                //     "route": "/orders"
+                // },
             ];
 
             yield put({
