@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/wy2008826/frontErrorReport#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "source-map": "^0.7.3",
     "@antv/data-set": "^0.8.9",
     "antd": "2.13.8",
